@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nexoft_task/deneme.dart';
+import 'package:nexoft_task/mymodelbottom.dart';
 
 class Contacts extends StatefulWidget {
   final int index;

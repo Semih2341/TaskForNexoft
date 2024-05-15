@@ -3,9 +3,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:nexoft_task/home.dart';
-import 'package:nexoft_task/image.dart';
+import 'package:nexoft_task/photopicker.dart';
 import 'package:nexoft_task/services.dart';
-import 'package:nexoft_task/utils.dart';
+import 'package:nexoft_task/snackbarhelper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class MyModalBottom {
