@@ -1,12 +1,8 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:nexoft_task/home.dart';
+import 'package:nexoft_task/Views/home.dart';
 import 'package:nexoft_task/photopicker.dart';
-import 'package:nexoft_task/services.dart';
-import 'package:nexoft_task/snackbarhelper.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:nexoft_task/Services/services.dart';
+import 'package:nexoft_task/Utils/snackbarhelper.dart';
 
 class MyModalBottom {
   static Widget? moreModalBottomSheet(context,
@@ -22,15 +18,14 @@ class MyModalBottom {
       surnameController.text = contact['lastName'];
       phoneNumberController.text = contact['phoneNumber'];
     }
-    // Remove the leading underscore
     showModalBottomSheet(
       context: context,
-      isScrollControlled: true, // For scrollable content
+      isScrollControlled: true,
       builder: (BuildContext context) {
         return Scaffold(
           body: SingleChildScrollView(
             child: Container(
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20.0),
@@ -44,13 +39,22 @@ class MyModalBottom {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text(
+                        child: const Text(
                           'Cancel',
-                          style: TextStyle(color: Colors.blue, fontSize: 20),
+                          style: TextStyle(
+                              fontFamily: 'Nunito',
+                              fontSize: 16,
+                              color: Colors.blue),
                         ),
                       ),
-                      Text(isEdit ? 'Edit Contact' : 'New Contact',
-                          style: TextStyle(fontSize: 20)),
+                      Text(
+                        isEdit ? 'Edit Contact' : 'New Contact',
+                        style: TextStyle(
+                            fontFamily: 'Nunito',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.black),
+                      ),
                       TextButton(
                           onPressed: () async {
                             if (isEdit) {
@@ -73,7 +77,8 @@ class MyModalBottom {
                                 Navigator.pushReplacement(
                                     mainContext,
                                     MaterialPageRoute(
-                                        builder: (context) => HomeScreen()));
+                                        builder: (context) =>
+                                            const HomeScreen()));
                               } else {
                                 showErrorMassage(mainContext,
                                     message: 'Failed to update contact');
@@ -99,28 +104,46 @@ class MyModalBottom {
                               }
                             }
                           },
-                          child: Text(
+                          child: const Text(
                             'Done',
-                            style: TextStyle(color: Colors.blue, fontSize: 20),
+                            style: TextStyle(
+                                fontFamily: 'Nunito',
+                                fontSize: 16,
+                                color: Colors.blue),
                           ))
                     ],
                   ),
-                  isEdit ? ProfileImage() : ProfileImage(),
+                  isEdit ? const ProfileImage() : const ProfileImage(),
+                  SizedBox(
+                    height: 30,
+                  ),
                   TextField(
+                    style: TextStyle(
+                        fontFamily: 'Nunito',
+                        fontSize: 16,
+                        color: Colors.black),
                     controller: firstnameController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'First Name',
                     ),
                   ),
                   TextField(
+                    style: TextStyle(
+                        fontFamily: 'Nunito',
+                        fontSize: 16,
+                        color: Colors.black),
                     controller: surnameController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Last Name',
                     ),
                   ),
                   TextField(
+                    style: TextStyle(
+                        fontFamily: 'Nunito',
+                        fontSize: 16,
+                        color: Colors.black),
                     controller: phoneNumberController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Phone Number',
                     ),
                   ),
@@ -128,7 +151,7 @@ class MyModalBottom {
                     TextButton(
                       onPressed: () async {
                         final isSuccess =
-                            await ContactsService.deleteById(contact['_id']);
+                            await ContactsService.deleteById(contact['id=']);
                         if (isSuccess) {
                           Navigator.pop(context);
                           showSuccessMassage(context,
@@ -136,13 +159,13 @@ class MyModalBottom {
                           Navigator.pushReplacement(
                               mainContext,
                               MaterialPageRoute(
-                                  builder: (context) => HomeScreen()));
+                                  builder: (context) => const HomeScreen()));
                         } else {
                           showErrorMassage(context,
                               message: 'Failed to delete');
                         }
                       },
-                      child: Text(
+                      child: const Text(
                         'Delete Contact',
                         style: TextStyle(color: Colors.red, fontSize: 20),
                       ),
@@ -159,16 +182,5 @@ class MyModalBottom {
       ),
     );
     return null;
-  }
-}
-
-class MapCreator {
-  Map<String, Object> mapCreator(
-      String title, String description, bool isCompleted) {
-    return {
-      "title": "",
-      "description": "",
-      "isCompleted": false,
-    };
   }
 }

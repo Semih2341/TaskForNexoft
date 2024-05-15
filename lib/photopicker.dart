@@ -1,11 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:universal_image/universal_image.dart';
-import 'dart:convert';
 
 File? currentPhoto;
 
@@ -23,7 +20,7 @@ class _ProfileImageState extends State<ProfileImage> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        MyModalBottomSheet(context);
+        myModalBottomSheet(context);
       },
       child: CircleAvatar(
         backgroundColor: Colors.grey,
@@ -36,7 +33,7 @@ class _ProfileImageState extends State<ProfileImage> {
                 padding: EdgeInsets.all(50),
                 iconSize: 100,
                 onPressed: () {
-                  MyModalBottomSheet(context);
+                  myModalBottomSheet(context);
                 },
                 icon: Icon(
                   Icons.person_rounded,
@@ -47,33 +44,66 @@ class _ProfileImageState extends State<ProfileImage> {
     );
   }
 
-  void MyModalBottomSheet(BuildContext context) {
+  void myModalBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext bc) {
         return Container(
           child: Wrap(
             children: <Widget>[
-              ListTile(
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ListTile(
+                  leading: Icon(Icons.photo_camera),
+                  title: Text(
+                    'Camera',
+                    style: TextStyle(
+                        fontFamily: 'Nunito',
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
+                  onTap: () {
+                    _pickImageFromCamera();
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ),
+              Divider(),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ListTile(
                   leading: Icon(Icons.photo_library),
-                  title: Text('Photo Library'),
+                  title: Text(
+                    'Photo Library',
+                    style: TextStyle(
+                        fontFamily: 'Nunito',
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
                   onTap: () {
                     _pickImageFromGallery();
                     Navigator.of(context).pop();
-                  }),
-              ListTile(
-                leading: Icon(Icons.photo_camera),
-                title: Text('Camera'),
-                onTap: () {
-                  _pickImageFromCamera();
-                  Navigator.of(context).pop();
-                },
+                  },
+                ),
               ),
-              ListTile(
-                title: Text('Cancel'),
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
+              Divider(),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ListTile(
+                  title: Text(
+                    'Cancel',
+                    style: TextStyle(
+                        fontFamily: 'Nunito',
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
               )
             ],
           ),

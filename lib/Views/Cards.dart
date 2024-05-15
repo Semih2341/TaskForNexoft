@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nexoft_task/mymodelbottom.dart';
+import 'package:nexoft_task/Views/mymodelbottom.dart';
 
 class Contacts extends StatefulWidget {
   final int index;
@@ -24,12 +24,10 @@ class _ContactsState extends State<Contacts> {
     return Card(
       child: ListTile(
         onTap: () {
-          print(widget.item['firstName']);
           firstnameController.text = widget.item['firstName'];
           surnameController.text = widget.item['lastName'];
           phoneNumberController.text = widget.item['phoneNumber'];
 
-          //phoneNumberController.text = widget.item['phoneNumber'];
           MyModalBottom.moreModalBottomSheet(context,
               item: widget.item, isEdit: true, mainContext: context);
         },
