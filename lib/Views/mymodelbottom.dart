@@ -167,7 +167,10 @@ class MyModalBottom {
                       },
                       child: const Text(
                         'Delete Contact',
-                        style: TextStyle(color: Colors.red, fontSize: 20),
+                        style: TextStyle(
+                            fontFamily: 'Nunito',
+                            fontSize: 16,
+                            color: Colors.red),
                       ),
                     )
                 ],
