@@ -69,6 +69,12 @@ class _ProfileImageState extends State<ProfileImage> {
                   Navigator.of(context).pop();
                 },
               ),
+              ListTile(
+                title: Text('Cancel'),
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+              )
             ],
           ),
         );

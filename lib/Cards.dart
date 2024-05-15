@@ -24,9 +24,10 @@ class _ContactsState extends State<Contacts> {
     return Card(
       child: ListTile(
         onTap: () {
-          print(widget.item['title']);
-          firstnameController.text = widget.item['title'];
-          surnameController.text = widget.item['description'];
+          print(widget.item['firstName']);
+          firstnameController.text = widget.item['firstName'];
+          surnameController.text = widget.item['lastName'];
+          phoneNumberController.text = widget.item['phoneNumber'];
 
           //phoneNumberController.text = widget.item['phoneNumber'];
           MyModalBottom.moreModalBottomSheet(context,
@@ -37,8 +38,8 @@ class _ContactsState extends State<Contacts> {
             '${widget.index + 1}',
           ),
         ),
-        title: Text(widget.item['title']),
-        subtitle: Text(widget.item['description']),
+        title: Text(widget.item['title'] + ' ' + widget.item['lastName']),
+        subtitle: Text(widget.item['phoneNumber']),
       ),
     );
   }

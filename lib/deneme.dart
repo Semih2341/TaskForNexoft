@@ -15,10 +15,11 @@ class MyModalBottom {
     final firstnameController = TextEditingController();
     final surnameController = TextEditingController();
     final phoneNumberController = TextEditingController();
+    final photoUrl = 'photo';
 
     if (isEdit) {
-      firstnameController.text = contact['title'];
-      surnameController.text = contact['description'];
+      firstnameController.text = contact['firstName'];
+      surnameController.text = contact['lastName'];
       phoneNumberController.text = contact['phoneNumber'];
     }
     // Remove the leading underscore
@@ -57,11 +58,13 @@ class MyModalBottom {
 
                               final isSuccess =
                                   await ContactsService.updateToDo(
-                                contact['_id'],
+                                contact['id'],
                                 {
-                                  "title": firstnameController.text,
-                                  "description": surnameController.text,
-                                  "isCompleted": false,
+                                  "firstName": firstnameController.text,
+                                  "lastName": surnameController.text,
+                                  "phoneNumber": phoneNumberController.text,
+                                  "image": ContactsService.uploadImage(
+                                      currentPhoto!.path),
                                 },
                               );
                               if (isSuccess) {
@@ -78,13 +81,18 @@ class MyModalBottom {
                             } else {
                               Navigator.pop(context);
                               print(currentPhoto!.path);
-                              final test = ContactsService.uploadImage(
-                                  currentPhoto!.path);
-                              print(test);
-                              if (test == true) {
+                              final isSuccess = await ContactsService.addToDo(
+                                {
+                                  "firstName": firstnameController.text,
+                                  "lastName": surnameController.text,
+                                  "phoneNumber": phoneNumberController.text,
+                                  "image": ContactsService.uploadImage(
+                                      currentPhoto!.path),
+                                },
+                              );
+                              if (isSuccess == true) {
                                 showSuccessMassage(mainContext,
                                     message: 'Contact Added successfully');
-                                print('tesstten dönen ' + test.toString());
                               } else {
                                 showErrorMassage(mainContext,
                                     message: 'Failed to add contact');
@@ -111,7 +119,7 @@ class MyModalBottom {
                     ),
                   ),
                   TextField(
-                    //controller: phoneNumberController,
+                    controller: phoneNumberController,
                     decoration: InputDecoration(
                       hintText: 'Phone Number',
                     ),

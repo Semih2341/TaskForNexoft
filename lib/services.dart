@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:nexoft_task/home.dart';
+import 'package:nexoft_task/image.dart';
 
 class ContactsService {
   // ... (other class members remain the same)
@@ -98,13 +99,17 @@ class ContactsService {
         // Check for success in response
         String imageUrl = responseJson['data']['imageUrl'] as String;
         print('Image uploaded successfully! URL: $imageUrl');
+        currentPhoto = null;
         return imageUrl;
       } else {
         print('Error uploading image: ${response.statusCode}');
+        currentPhoto = null;
         return null; // Indicate error
       }
     } else {
       print('Error uploading image: ${response.statusCode}');
+      currentPhoto = null;
+
       return null; // Indicate error
     }
   }
